@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For you</title>
+
+    <script src="./vue.min.js"></script>
+
+</head>
+<body>
+
+<body>
+<div id="app" class="container">
+    <div class="floating" id="character" ref="character">
+        <img v-show="currentFrameForCharacter === index" v-for="(frame, index) in animation.character" :src="frame">
+    </div>
+    <div class="floating" id="phone" ref="phone">
+        <img v-show="currentFrameForPhone === index" v-for="(frame, index) in animation.phone" :src="frame" style="width: 10%; right: 14%; top: 55%">
+    </div>
+    <div class="floating" id="dessert" ref="cake">
+        <img v-show="currentFrameForCake === index" v-for="(frame, index) in animation.cake" :src="frame" style="width: 10%; left: 15%; top: 32%">
+    </div>
+    <div class="floating" id="hearts" ref="hearts">
+        <img v-show="currentFrameForHears === index" v-for="(frame, index) in animation.hearts" :src="frame" style="top: 13%">
+    </div>
+    <div class="floating" id="macro" ref="macro">
+        <img v-show="currentFrameForMacro === index" v-for="(frame, index) in animation.macro" :src="frame" style="width: 10%; right: 14%; top: 32%">
+    </div>
+    <div class="floating" id="mail" ref="mail">
+        <img v-show="currentFrameForMail === index" v-for="(frame, index) in animation.mail" :src="frame" style="width: 10%; left: 15%; top: 55%">
+    </div>
+    <div class="floating" id="tea" ref="tea">
+        <img v-show="currentFrameForTea === index" v-for="(frame, index) in animation.tea" :src="frame" style="width: 3%; left: 39%; top: 48%">
+    </div>
+</div>
+</body>
+
+</body>
+
+<script>
+
+  new Vue({
+    el: '#app',
+    data: {
+      currentRotateIndex: 0,
+      currentSeconds: 0,
+      currentFrameForCharacter: 0,
+      currentFrameForHears: 0,
+      currentFrameForCake: 0,
+      currentFrameForMacro: 0,
+      currentFrameForMail: 0,
+      currentFrameForPhone: 0,
+      currentFrameForTea: 0,
+      animation: {
+        character: [
+          './oc/0.png',
+          './oc/1.png',
+          './oc/2.png',
+          './oc/3.png',
+          './oc/4.png',
+        ],
+        hearts: [
+          './v3/heart0.png',
+          './v3/heart1.png',
+          './v3/heart3.png',
+        ],
+        cake: [
+          './v3/cake0.png',
+          './v3/cake1.png',
+        ],
+        macro: [
+          './v3/macro0.png',
+          './v3/macro1.png',
+        ],
+        mail: [
+          './v3/mail0.png',
+          './v3/mail1.png',
+          // './mail/2.png',
+        ],
+        phone: [
+          './v3/phone0.png',
+          './v3/phone1.png',
+        ],
+        tea: [
+          './tea/tea1.png',
+          './tea/tea3.png',
+        ]
+      },
+    },
+    created() {
+
+      this.$nextTick(() => {
+        setInterval(() => {
+          this.currentSeconds++
+        }, 1000)
+
+        this.animateCharacter()
+        this.animateHearts()
+        this.animateCake()
+        this.animateMacro()
+        this.animateMail()
+        this.animatePhone()
+        this.animateTea()
+        this.rotateEverything()
+      })
+
+
+    },
+    methods: {
+      animateCharacter() {
+
+        setInterval(() => {
+
+          if (this.currentSeconds % 2 === 0 && this.currentFrameForCharacter === 2) {
+            this.currentFrameForCharacter = -1
+          }
+
+          this.currentFrameForCharacter = this.currentFrameForCharacter === this.animation.character.length - 1
+            ? 0
+            : this.currentFrameForCharacter + 1
+
+        }, 1000 / this.animation.character.length);
+
+
+      },
+      animateHearts() {
+        setInterval(() => {
+
+          this.currentFrameForHears = this.currentFrameForHears === this.animation.hearts.length - 1
+            ? 0
+            : this.currentFrameForHears + 1
+
+        }, 1000 / this.animation.hearts.length);
+      },
+      animateCake() {
+        setInterval(() => {
+
+          this.currentFrameForCake = this.currentFrameForCake === this.animation.cake.length - 1
+            ? 0
+            : this.currentFrameForCake + 1
+
+        }, 1000 / this.animation.cake.length);
+      },
+      animateMacro() {
+        setInterval(() => {
+
+          this.currentFrameForMacro = this.currentFrameForMacro === this.animation.macro.length - 1
+            ? 0
+            : this.currentFrameForMacro + 1
+
+        }, 1000 / this.animation.macro.length);
+      },
+      animateMail() {
+        setInterval(() => {
+
+          this.currentFrameForMail = this.currentFrameForMail === this.animation.mail.length - 1
+            ? 0
+            : this.currentFrameForMail + 1
+
+        }, 1000 / this.animation.mail.length);
+      },
+      animatePhone() {
+        setInterval(() => {
+
+          this.currentFrameForPhone = this.currentFrameForPhone === this.animation.phone.length - 1
+            ? 0
+            : this.currentFrameForPhone + 1
+
+        }, 1000 / this.animation.phone.length);
+      },
+      animateTea() {
+        setInterval(() => {
+
+          this.currentFrameForTea = this.currentFrameForTea === this.animation.tea.length - 1
+            ? 0
+            : this.currentFrameForTea + 1
+
+        }, 1000 / this.animation.tea.length);
+      },
+      rotateEverything() {
+
+        const character = this.$refs.character;
+        const phone = this.$refs.phone;
+        const dessert = this.$refs.cake;
+        const hearts = this.$refs.hearts;
+        const macrophone = this.$refs.macro;
+        const tea = this.$refs.tea;
+
+        const items = [
+          character,
+          phone,
+          dessert,
+          hearts,
+          macrophone,
+          tea,
+        ]
+
+        console.log(items)
+
+        const path = [
+          [0, 0, 0],
+          [8, 8, 0],
+          [0, 8, 0],
+          [-8, 8, 0],
+          [-8, 0, 0],
+          [0, -8, 0],
+          [8, -8, 0],
+          [8, 0, 0]
+        ];
+
+        setInterval(() => {
+          const [x, y, z] = path[this.currentRotateIndex];
+
+          items.forEach((el) => el.style.transform = `rotateX(${x}deg) rotateY(${y}deg) rotateZ(${z}deg)`)
+
+          this.currentRotateIndex = (this.currentRotateIndex + 1) % path.length;
+        }, 1000); // 切换每隔1秒
+
+      }
+    }
+  })
+
+</script>
+
+<style>
+
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(53deg, #997171, white);
+    }
+
+    .container {
+        position: absolute;
+        max-width: 90vw;
+        max-height: 90vh;
+        overflow: hidden;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        user-select: none;
+        transform: translate3d(0, 0, 0);
+        transform-style: preserve-3d;
+        will-change: transform;
+
+        width: 80vw;
+        height: 80vw;
+
+        background-image: url("./background.png");
+        background-size: cover;
+
+    }
+
+    .floating {
+        position: absolute;
+        will-change: transform;
+        width: 90%;
+        transition: all 1.2s linear;
+        transform-style: preserve-3d;
+        transform: translateZ(0);
+
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        transform-origin: 30px;
+
+        width: 80vw;
+        height: 80vw;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .floating > img {
+        position: absolute;
+        max-width: 100%;
+        width: 50%;
+    }
+
+    /*#background {*/
+    /*    background-image: url("./background.png");*/
+    /*}*/
+    /*#character {*/
+    /*    background-image: url("./character.png");*/
+    /*}*/
+    /*#phone {*/
+    /*    background-image: url("./phone.png");*/
+    /*}*/
+    /*#dessert {*/
+    /*    background-image: url("./dessert.png");*/
+    /*}*/
+    /*#hearts {*/
+    /*    background-image: url("./hearts.png");*/
+    /*}*/
+    /*#macrophone {*/
+    /*    background-image: url("./macrophone.png");*/
+    /*}*/
+    /*#mail {*/
+    /*    background-image: url("./mail.png");*/
+    /*}*/
+
+</style>
+
+</html>
